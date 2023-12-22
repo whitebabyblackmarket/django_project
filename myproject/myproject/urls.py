@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from replicate_integration.views import home, run_stable_diffusion
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home, name='home'),
+    path('predict/', run_stable_diffusion, name='predict'),
 ]

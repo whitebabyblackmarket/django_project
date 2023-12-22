@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stable Diffusion Integration</title>
+</head>
+<body>
+    <h1>Welcome to the Stable Diffusion Integration!</h1>
+    <form action="/predict/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="prompt">Prompt:</label><br>
+        <input type="text" id="prompt" name="prompt"><br>
+        <label for="negative_prompt">Negative Prompt:</label><br>
+        <input type="text" id="negative_prompt" name="negative_prompt"><br>
+        <label for="image">Upload Image:</label><br>
+        <input type="file" id="image" name="image" accept="image/*"><br>
+        <input type="submit" value="Generate">
+    </form>
+    {% if image_url %}
+        <h2>Generated Image:</h2>
+        <img src="{{ image_url }}" alt="Generated Image">
+    {% endif %}
+</body>
+</html>
+
