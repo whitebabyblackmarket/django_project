@@ -8,6 +8,9 @@ from django.core.files.storage import FileSystemStorage
 def home(request):
     return render(request, 'replicate_integration/index.html')
 
+def index(request):
+    return render(request, 'frontend/index.html')
+
 def run_stable_diffusion(request):
     if request.method == 'POST':
         prompt = request.POST.get('prompt', 'a vision of paradise. unreal engine')
