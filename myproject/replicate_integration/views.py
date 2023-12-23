@@ -4,6 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     return render(request, 'replicate_integration/index.html')
@@ -11,6 +12,7 @@ def home(request):
 def index(request):
     return render(request, 'frontend/index.html')
 
+@csrf_exempt
 def run_stable_diffusion(request):
     if request.method == 'POST':
         prompt = request.POST.get('prompt', 'a vision of paradise. unreal engine')
@@ -49,6 +51,6 @@ def run_stable_diffusion(request):
             }
         )
 
-        return render(request, 'replicate_integration/index.html', {'image_url': result[0]})
+        return JsonResponse({'image_url': result[0]})
     else:
         return render(request, 'replicate_integration/index.html')

@@ -3,36 +3,33 @@ import React, { useState } from 'react';
 function App() {
   const [prompt, setPrompt] = useState('');
   const [negativePrompt, setNegativePrompt] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [image, setImage] = useState(null);
   const [generatedImage, setGeneratedImage] = useState(null);
 
-  const handleImageUpload = event => {
-    setSelectedImage(URL.createObjectURL(event.target.files[0]));
+  const handleImageUpload = (event) => {
+    setImage(event.target.files[0]);
   };
 
-  const handleFormSubmit = async event => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     const formData = new FormData();
     formData.append('prompt', prompt);
     formData.append('negative_prompt', negativePrompt);
-    formData.append('image', selectedImage);
+    formData.append('image', image);
 
-    const response = await fetch('/predict/', {
+    const response = await fetch('http://localhost:8000/predict/', {
       method: 'POST',
       body: formData,
-    });
+  });
 
-    if (!response.ok) {
-      console.error('Image generation failed:', response.statusText);
-      return;
+    
+    if (response.ok) {
+      const data = await response.json();
+      setGeneratedImage(data.image_url);
+    } else {
+      console.error('Error:', response.status, response.statusText);
     }
-
-    const data = await response.text();
-    const parser = new DOMParser();
-    const htmlDocument = parser.parseFromString(data, 'text/html');
-    const imageUrl = htmlDocument.querySelector('img').src;
-    setGeneratedImage(imageUrl);
   };
 
   return (

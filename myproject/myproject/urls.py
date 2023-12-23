@@ -4,7 +4,9 @@ from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', views.home, name='home'),
     path('predict/', views.run_stable_diffusion, name='predict'),
-    path('', views.index, name='index'),
+    # Remove or comment out the paths that serve HTML templates
+    # path('home/', views.home, name='home'),
+    # path('', views.index, name='index'),
 ]
+
