@@ -86,7 +86,6 @@ pyreadline3==3.4.1
 PySocks==1.7.1
 python-dateutil==2.8.2
 pytz==2023.3.post1
-pywin32==306
 PyYAML==6.0.1
 referencing==0.32.0
 replicate==0.22.0
